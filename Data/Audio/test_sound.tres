@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="AudioFile" load_steps=3 format=3 uid="uid://chsidnbaem4c3"]
+
+[ext_resource type="AudioStream" uid="uid://be2oyo5genh33" path="res://Audio/SFX/learn2drive.ogg" id="1_0afqi"]
+[ext_resource type="Script" path="res://Code/Audio/audio_file.gd" id="1_1fped"]
+
+[resource]
+script = ExtResource("1_1fped")
+files = Array[AudioStream]([ExtResource("1_0afqi")])
+volume_db = 20.0
+min_pitch_scale = 1.0
+max_pitch_scale = 1.0
+is_music = false
+always_play = false

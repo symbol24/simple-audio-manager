@@ -1,0 +1,99 @@
+[gd_scene load_steps=3 format=3 uid="uid://cvfim8o7jcdx3"]
+
+[ext_resource type="Script" path="res://Code/test_scene.gd" id="1_6pl75"]
+[ext_resource type="Script" path="res://Code/s_slider.gd" id="2_njqsh"]
+
+[node name="TestScene" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_6pl75")
+
+[node name="btn_music" type="Button" parent="."]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 310.0
+offset_top = 70.0
+offset_right = 436.0
+offset_bottom = 139.0
+text = "Test Music"
+
+[node name="btn_sfx" type="Button" parent="."]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 687.0
+offset_top = 70.0
+offset_right = 813.0
+offset_bottom = 139.0
+text = "Test SFX"
+
+[node name="btn_reset" type="Button" parent="."]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 507.0
+offset_top = 200.0
+offset_right = 633.0
+offset_bottom = 269.0
+text = "Reset Volumes"
+
+[node name="slider_master" type="HSlider" parent="."]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 320.0
+offset_top = 370.0
+offset_right = 820.0
+offset_bottom = 386.0
+max_value = 1.0
+step = 0.01
+script = ExtResource("2_njqsh")
+bus_name = "Master"
+
+[node name="slider_music" type="HSlider" parent="."]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 320.0
+offset_top = 455.0
+offset_right = 820.0
+offset_bottom = 471.0
+max_value = 1.0
+step = 0.01
+script = ExtResource("2_njqsh")
+bus_name = "Music"
+
+[node name="slider_sfx" type="HSlider" parent="."]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 320.0
+offset_top = 540.0
+offset_right = 820.0
+offset_bottom = 556.0
+max_value = 1.0
+step = 0.01
+script = ExtResource("2_njqsh")
+bus_name = "SFX"
+
+[node name="lbl_master" type="Label" parent="."]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 320.0
+offset_top = 330.0
+offset_right = 438.0
+offset_bottom = 353.0
+text = "Master Volume"
+
+[node name="lbl_music" type="Label" parent="."]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 320.0
+offset_top = 415.0
+offset_right = 438.0
+offset_bottom = 438.0
+text = "Music Volume"
+
+[node name="lbl_sfx" type="Label" parent="."]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 320.0
+offset_top = 500.0
+offset_right = 438.0
+offset_bottom = 523.0
+text = "SFX Volume"

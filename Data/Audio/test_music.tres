@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="AudioFile" load_steps=3 format=3 uid="uid://wnpgq1km20y6"]
+
+[ext_resource type="AudioStream" uid="uid://dqp6r2awlcqeg" path="res://Audio/Music/squish4.ogg" id="1_0hbr0"]
+[ext_resource type="Script" path="res://Code/Audio/audio_file.gd" id="1_afm3y"]
+
+[resource]
+script = ExtResource("1_afm3y")
+files = Array[AudioStream]([ExtResource("1_0hbr0")])
+volume_db = 20.0
+min_pitch_scale = 1.0
+max_pitch_scale = 1.0
+is_music = true
+always_play = false
