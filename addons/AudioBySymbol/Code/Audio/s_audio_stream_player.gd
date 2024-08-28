@@ -1,6 +1,6 @@
 class_name SAudioStreamPlayer extends AudioStreamPlayer
 
-signal AudioExiting(audioStream)
+signal AudioExiting(audioStream:AudioStream)
 
 func _ready() -> void:
 	tree_exiting.connect(exit_tree)

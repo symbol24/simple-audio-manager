@@ -16,11 +16,11 @@ const TEST_SOUND = preload("res://addons/AudioBySymbol/Data/Audio/test_sound.tre
 
 var music:SAudioStreamPlayer
 var sfx:SAudioStreamPlayer
-var master_volume := 1.0
-var music_volume := 1.0
-var sfx_volume := 1.0
-var delay := 0.3
-var timer := 0.0:
+var master_volume :float = 1.0
+var music_volume :float = 1.0
+var sfx_volume :float = 1.0
+var delay :float = 0.3
+var timer :float = 0.0:
 	set(_value):
 		timer = _value
 		if timer >= delay:
