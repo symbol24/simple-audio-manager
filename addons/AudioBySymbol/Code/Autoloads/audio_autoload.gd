@@ -57,7 +57,8 @@ func play(audio:AudioFile = null, _is_2d := false) -> SAudioStreamPlayer:
 		else: new_player.bus = "SFX"
 		#print("Audio in bus ", new_player.bus)
 		new_player.volume_db = audio.volume_db
-		new_player.pitch_scale = audio.get_random_pitch()
+		if audio.random_pitch:
+			new_player.pitch_scale = audio.get_random_pitch()
 	if new_player.stream != null:
 		audio_stage.add_child(new_player)
 		new_player.AudioExiting.connect(_freed_audio)

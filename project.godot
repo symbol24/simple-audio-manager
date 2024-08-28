@@ -17,7 +17,7 @@ config/icon="res://icon.svg"
 
 [autoload]
 
-Audio="*res://addons/AudioBySymbol/Code/Autoloads/audio.gd"
+Audio="*res://addons/AudioBySymbol/Code/Autoloads/audio_autoload.gd"
 
 [editor_plugins]
 

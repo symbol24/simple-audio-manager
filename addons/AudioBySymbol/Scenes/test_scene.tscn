@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://cvfim8o7jcdx3"]
 
 [ext_resource type="Script" path="res://addons/AudioBySymbol/Code/test_scene.gd" id="1_6pl75"]
-[ext_resource type="Script" path="res://addons/AudioBySymbol/Code/s_slider.gd" id="2_njqsh"]
+[ext_resource type="Script" path="res://addons/AudioBySymbol/Code/extensions/s_slider.gd" id="2_njqsh"]
 
 [node name="TestScene" type="Control"]
 layout_mode = 3
