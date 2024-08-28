@@ -1,7 +1,7 @@
 extends Node
 
-const AUDIO_STAGE = preload("res://Scenes/Audio/audio_stage.tscn")
-const DEFAULT = preload("res://Data/Audio/default.tres")
+const AUDIO_STAGE = preload("res://addons/AudioBySymbol/Scenes/Audio/audio_stage.tscn")
+const DEFAULT = preload("res://addons/AudioBySymbol/Data/Audio/default.tres")
 const MIN_DB := -60.0
 const MAX_DB := 0.0
 

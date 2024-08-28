@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="AudioFile" load_steps=3 format=3 uid="uid://chsidnbaem4c3"]
 
-[ext_resource type="AudioStream" uid="uid://be2oyo5genh33" path="res://Audio/SFX/learn2drive.ogg" id="1_0afqi"]
-[ext_resource type="Script" path="res://Code/Audio/audio_file.gd" id="1_1fped"]
+[ext_resource type="AudioStream" uid="uid://be2oyo5genh33" path="res://addons/AudioBySymbol/Audio/SFX/learn2drive.ogg" id="1_0afqi"]
+[ext_resource type="Script" path="res://addons/AudioBySymbol/Code/Audio/audio_file.gd" id="1_1fped"]
 
 [resource]
 script = ExtResource("1_1fped")

@@ -1,8 +1,8 @@
 class_name TestScene extends Control
 
-const TEST_MUSIC = preload("res://Data/Audio/test_music.tres")
-const TEST_SOUND = preload("res://Data/Audio/test_sound.tres")
-const DEFAULT = preload("res://Data/Audio/default.tres")
+const DEFAULT = preload("res://addons/AudioBySymbol/Data/Audio/default.tres")
+const TEST_MUSIC = preload("res://addons/AudioBySymbol/Data/Audio/test_music.tres")
+const TEST_SOUND = preload("res://addons/AudioBySymbol/Data/Audio/test_sound.tres")
 
 @onready var btn_music: Button = %btn_music
 @onready var btn_sfx: Button = %btn_sfx
