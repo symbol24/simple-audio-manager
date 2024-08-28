@@ -8,12 +8,10 @@ enum TYPE {NORMAL = 0, TWO_D = 1, THREE_D = 2}
 @export var stream_type:TYPE = TYPE.NORMAL
 ##Default decibel volume is set to -10, please avoid going over 0, and adjust the other files for better balance.
 @export var volume_db :float = -10.0
-##Pitch allows for variation in sounds.
+##Pitch allows for variation in sounds. If both min and max are 1, no pitch change.
 @export var min_pitch_scale :float = 1.0
-##Pitch allows for variation in sounds.
+##Pitch allows for variation in sounds. If both min and max are 1, no pitch change.
 @export var max_pitch_scale :float = 1.0
-##Setting to true allows the audio to be pitched vetween the min and max.
-@export var random_pitch :bool = true
 ##If set to true, AudioStream will play on the Music bus. Music continues to play when tree is paused.
 @export var is_music :bool = false
 ##If set to true, AudioStream will continue to play when tree is paused.
