@@ -26,6 +26,24 @@ offset_right = 813.0
 offset_bottom = 139.0
 text = "Test SFX"
 
+[node name="btn_sfx2D" type="Button" parent="."]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 835.0
+offset_top = 70.0
+offset_right = 961.0
+offset_bottom = 139.0
+text = "Test SFX 2D"
+
+[node name="btn_sfx3D" type="Button" parent="."]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 835.0
+offset_top = 158.0
+offset_right = 961.0
+offset_bottom = 227.0
+text = "Test SFX 3D"
+
 [node name="btn_reset" type="Button" parent="."]
 unique_name_in_owner = true
 layout_mode = 0

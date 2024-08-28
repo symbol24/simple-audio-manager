@@ -21,7 +21,6 @@ Audio="*res://addons/AudioBySymbol/Code/Autoloads/audio_autoload.gd"
 
 [debug]
 
-gdscript/warnings/exclude_addons=false
 gdscript/warnings/untyped_declaration=1
 gdscript/warnings/unsafe_property_access=1
 gdscript/warnings/unsafe_method_access=1

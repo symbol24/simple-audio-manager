@@ -1,4 +1,6 @@
-class_name SAudioStreamPlayer extends AudioStreamPlayer
+class_name SAudioStreamPlayer2D extends AudioStreamPlayer2D
+
+var audio_file:AudioFile
 
 signal AudioExiting(audioStream:AudioStream)
 
