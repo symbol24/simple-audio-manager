@@ -1,5 +1,6 @@
 @tool
-class_name AudioData extends Resource
+class_name AudioData 
+extends Resource
 
 ##Volume value betweem 0.0 and 1.0. Values are constrained in code.
 @export var master_volume:float = 1.0:

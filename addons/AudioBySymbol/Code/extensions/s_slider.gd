@@ -1,4 +1,5 @@
-class_name SHSlider extends HSlider
+class_name SHSlider 
+extends HSlider
 
 @export var bus_name :String = ""
 

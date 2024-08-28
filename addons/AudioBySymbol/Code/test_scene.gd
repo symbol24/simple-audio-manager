@@ -1,4 +1,5 @@
-class_name TestScene extends Control
+class_name TestScene 
+extends Control
 
 const DEFAULT = preload("res://addons/AudioBySymbol/Data/Audio/default.tres")
 const TEST_MUSIC = preload("res://addons/AudioBySymbol/Data/Audio/test_music.tres")

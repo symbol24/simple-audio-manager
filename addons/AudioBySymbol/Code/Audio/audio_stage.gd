@@ -1,1 +1,2 @@
-class_name AudioStage extends Node
+class_name AudioStage 
+extends Node
