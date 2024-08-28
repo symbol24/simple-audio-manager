@@ -10,10 +10,11 @@ config_version=5
 
 [application]
 
-config/name="audio by symbol24"
+config/name="Simple Audio Manager"
+config/description="A simple audio manager to help start audio."
 run/main_scene="res://addons/AudioBySymbol/Scenes/test_scene.tscn"
 config/features=PackedStringArray("4.3", "Forward Plus")
-config/icon="res://icon.svg"
+config/icon="res://simple_audio_manager_icon.png"
 
 [autoload]
 
