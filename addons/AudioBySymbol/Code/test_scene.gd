@@ -51,22 +51,22 @@ func _ready() -> void:
 
 func _music_pressed() -> void:
 	if music == null:
-		music = Audio.play(TEST_MUSIC)
+		music = Audio.play_audio(TEST_MUSIC)
 	else:
 		music.stop()
 		music.exit_tree()
 
 func _sfx_pressed() -> void:
 	if sfx == null:
-		sfx = Audio.play(TEST_SOUND)
+		sfx = Audio.play_audio(TEST_SOUND)
 		
 func _sfx2d_pressed() -> void:
 	if sfx == null:
-		sfx = Audio.play(TEST_SOUND_2D)
+		sfx = Audio.play_audio_2d(TEST_SOUND_2D)
 		
 func _sfx3d_pressed() -> void:
 	if sfx == null:
-		sfx = Audio.play(TEST_SOUND_3D)
+		sfx = Audio.play_audio_3d(TEST_SOUND_3D)
 		print("---------")
 		print("3D audio requires a proper 3D environement. Only normal and 2D sounds are heard in this demo scene.")
 		print("The 3D audio file was instantiated under name ", sfx.name)

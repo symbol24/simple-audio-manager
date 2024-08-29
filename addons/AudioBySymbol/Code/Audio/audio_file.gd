@@ -1,17 +1,8 @@
 class_name AudioFile 
 extends Resource
 
-enum Type {
-	NORMAL = 0,
-	TWO_D = 1,
-	THREE_D = 2,
-	}
-
 ##Import your own audio files and add them to the files list. Note, if only 1 file present, then no random sounds.
 @export var files:Array[AudioStream]
-
-##Set the type of AudioStream to be used, normal, 2D or 3D.
-@export var stream_type:Type = Type.NORMAL
 
 ##Default decibel volume is set to -10, please avoid going over 0, and adjust the other files for better balance.
 @export var volume_db :float = -10.0

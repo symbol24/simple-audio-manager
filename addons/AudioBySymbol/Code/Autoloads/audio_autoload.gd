@@ -9,7 +9,7 @@ const MAX_DB := 0.0
 
 var audio_stage:AudioStage
 var audio_pool:Array = []
-var music:Node
+var music:SAudioStreamPlayer
 var audio_check_timer :float = 0.0:
 	set(_value):
 		audio_check_timer = _value
@@ -37,40 +37,94 @@ func _ready() -> void:
 func _process(_delta:float) -> void:
 	# Used to check for dead or zombie audio streams in the pool. Disabling this line will remove the check if it becomes a performance issue.
 	audio_check_timer += _delta 
-	
-# he main function used by your game to play audio.
-func play(_audio_file:AudioFile = null) -> Node:
-	var new_player:Node
-	# Used for music to fade between old and new music.
-	var fade :bool = false
-	var out_music:Node
-	var in_db:float = -10
+
+# The  function used by your game to play non-2D and non-3D audio.
+func play_audio(_audio_file:AudioFile = null) -> SAudioStreamPlayer:
 	# If the audio file is set to unique, we immediatly return the ongoing audio stream if its playing
 	if _audio_file.is_unique:
-		var temp:Node = _get_currently_playing(_audio_file)
+		var temp:SAudioStreamPlayer = _get_currently_playing(_audio_file)
 		if temp: return temp
+		
+	# Used for music to fade between old and new music.
+	var fade :bool = false
+	var out_music:SAudioStreamPlayer
+	var in_db:float = -10
+	
+	# Set out music to fade
+	if music != null: 
+		out_music = music
+		fade = true
+		in_db = _audio_file.volume_db
+	
+	var new_player:SAudioStreamPlayer = _get_audio_stream(_audio_file, 1) as SAudioStreamPlayer
+	
+	# Trigger music fade
+	if fade: 
+		new_player.volume_db = MIN_DB
+		_fade_music(out_music, new_player, in_db)
+		
+	if new_player: new_player.play()
+	return new_player
+
+# The function used to play 2D audio
+func play_audio_2d(_audio_file:AudioFile = null, _position:Vector2 = Vector2.ZERO) -> SAudioStreamPlayer2D:
+	if _audio_file.is_unique:
+		var temp:Node = _get_currently_playing(_audio_file)
+		if temp and temp is SAudioStreamPlayer2D: return temp as SAudioStreamPlayer2D
+		
+	var new_player:SAudioStreamPlayer2D = _get_audio_stream(_audio_file, 2) as SAudioStreamPlayer2D
+	
+	if new_player: 
+		new_player.set_deferred("global_position", _position)
+		new_player.play()
+	return new_player
+
+# The function used to play 3D audio
+func play_audio_3d(_audio_file:AudioFile = null, _position:Vector3 = Vector3.ZERO) -> SAudioStreamPlayer3D:
+	if _audio_file.is_unique:
+		var temp:Node = _get_currently_playing(_audio_file)
+		if temp and temp is SAudioStreamPlayer3D: return temp as SAudioStreamPlayer3D
+		
+	var new_player:SAudioStreamPlayer3D = _get_audio_stream(_audio_file, 3) as SAudioStreamPlayer3D
+	
+	if new_player: 
+		new_player.set_deferred("global_position", _position)
+		new_player.play()
+	return new_player
+
+# Resets the buses to the default values in the AudioData resource (see const above)
+func reset_volumes() -> void:
+	_update_audio_volume("Master", DEFAULT.master_volume)
+	_update_audio_volume("Music", DEFAULT.music_volume)
+	_update_audio_volume("SFX", DEFAULT.sfx_volume)
+	VolumesUpdated.emit()
+
+# Function to set the bus volumes based on player changes and/or save data
+func set_volumes(_master:float = 1.0, _music :float = 1.0, _sfx :float = 1.0) -> void:
+	_update_audio_volume("Master", _master)
+	_update_audio_volume("Music", _music)
+	_update_audio_volume("SFX", _sfx)
+	VolumesUpdated.emit()
+
+func _get_audio_stream(_audio_file:AudioFile, _type:int = 1) -> Node:
+	var new_player:Node
+	
+	# Set based on type (1 normal, 2 2D, 3 3D)
+	match _type:
+		2:
+			new_player = SAudioStreamPlayer2D.new()
+		3:
+			new_player = SAudioStreamPlayer3D.new()
+		_:
+			new_player = SAudioStreamPlayer.new()
 	
 	# Null validation on parameter
 	if _audio_file != null:
-		
-		# Set AudioStreamPlayer based on type
-		match _audio_file.stream_type:
-			AudioFile.Type.TWO_D: 
-				new_player = SAudioStreamPlayer2D.new()
-			AudioFile.Type.THREE_D: 
-				new_player = SAudioStreamPlayer3D.new()
-			_: 
-				new_player = SAudioStreamPlayer.new()
-		
 		# If there is only 1 file in teh audio file, there is no random.
 		new_player.set_stream(_audio_file.get_random_audio())
 		# Set to the right bus
 		if _audio_file.is_music:
 			new_player.bus = "Music"
-			if music != null: 
-				out_music = music
-				fade = true
-				in_db = _audio_file.volume_db
 			music = new_player
 		else: new_player.bus = "SFX"
 		# Set DB of new stream to that in the audio file
@@ -90,27 +144,9 @@ func play(_audio_file:AudioFile = null) -> Node:
 			elif _audio_file.always_play: 
 				new_player.process_mode = PROCESS_MODE_ALWAYS
 			# If the music needs to fade, we tween the volume db of the outgoing and the incoming
-			if fade: 
-				new_player.volume_db = MIN_DB
-				_fade_music(out_music, new_player, in_db)
-			new_player.play()
 	return new_player
 
-# Resets the buses to the default values in the AudioData resource (see const above)
-func reset_volumes() -> void:
-	_update_audio_volume("Master", DEFAULT.master_volume)
-	_update_audio_volume("Music", DEFAULT.music_volume)
-	_update_audio_volume("SFX", DEFAULT.sfx_volume)
-	VolumesUpdated.emit()
-
-# Function to set the bus volumes based on player changes and/or save data
-func set_volumes(_master:float = 1.0, _music :float = 1.0, _sfx :float = 1.0) -> void:
-	_update_audio_volume("Master", _master)
-	_update_audio_volume("Music", _music)
-	_update_audio_volume("SFX", _sfx)
-	VolumesUpdated.emit()
-
-func _fade_music(_out:Node, _in:Node, _max_db_of_in:float) -> void:
+func _fade_music(_out:SAudioStreamPlayer, _in:SAudioStreamPlayer, _max_db_of_in:float) -> void:
 	var tween1:Tween = get_tree().create_tween()
 	tween1.tween_property(_out, "volume_db", MIN_DB, 1.0)
 	var tween2:Tween = get_tree().create_tween()
@@ -129,7 +165,7 @@ func _clear_audio_pool() -> void:
 	if not to_clear.is_empty():
 		for i:int in to_clear:
 			if i < audio_pool.size():
-				var temp:SAudioStreamPlayer = audio_pool.pop_at(i)
+				var temp:Node = audio_pool.pop_at(i)
 				if temp != null:
 					temp.queue_free.call_deferred()
 
@@ -152,7 +188,7 @@ func _freed_audio(_audio:Node) -> void:
 		_temp.queue_free.call_deferred()
 
 func _get_currently_playing(_audio_file:AudioFile = null) -> Node:
-	for each:SAudioStreamPlayer in audio_pool:
+	for each:Node in audio_pool:
 		if each != null and each.audio_file == _audio_file and each.is_playing():
 			return each
 	return null

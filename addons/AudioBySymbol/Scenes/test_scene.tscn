@@ -115,3 +115,6 @@ offset_top = 500.0
 offset_right = 438.0
 offset_bottom = 523.0
 text = "SFX Volume"
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(576, 324)
