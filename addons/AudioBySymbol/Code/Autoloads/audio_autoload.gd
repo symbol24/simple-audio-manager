@@ -21,7 +21,7 @@ var delay :float = 60.0
 
 func _ready() -> void:
 	process_mode = PROCESS_MODE_ALWAYS
-	
+	add_to_group("SimpleAudioManager")
 	# Creates the audio stage as a child of the autoload.
 	audio_stage = AUDIO_STAGE.instantiate() as AudioStage
 	add_child(audio_stage)
