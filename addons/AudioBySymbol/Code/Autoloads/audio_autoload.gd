@@ -1,6 +1,7 @@
 extends Node
 
 signal VolumesUpdated()
+signal BusVolumeUpdate(bus:String, value:float)
 
 const AUDIO_STAGE := preload("res://addons/AudioBySymbol/Scenes/Audio/audio_stage.tscn")
 const DEFAULT := preload("res://addons/AudioBySymbol/Data/Audio/default.tres")
@@ -21,6 +22,7 @@ var delay :float = 60.0
 
 func _ready() -> void:
 	process_mode = PROCESS_MODE_ALWAYS
+	BusVolumeUpdate.connect(_update_audio_volume)
 	add_to_group("SimpleAudioManager")
 	# Creates the audio stage as a child of the autoload.
 	audio_stage = AUDIO_STAGE.instantiate() as AudioStage
@@ -40,57 +42,71 @@ func _process(_delta:float) -> void:
 
 # The  function used by your game to play non-2D and non-3D audio.
 func play_audio(_audio_file:AudioFile = null) -> SAudioStreamPlayer:
-	# If the audio file is set to unique, we immediatly return the ongoing audio stream if its playing
-	if _audio_file.is_unique:
-		var temp:SAudioStreamPlayer = _get_currently_playing(_audio_file)
-		if temp: return temp
+	if _audio_file != null:
+		# If the audio file is set to unique, we immediatly return the ongoing audio stream if its playing
+		if _audio_file.is_unique:
+			var temp:SAudioStreamPlayer = _get_currently_playing(_audio_file)
+			if temp: return temp
+			
+		# Used for music to fade between old and new music.
+		var fade :bool = false
+		var out_music:SAudioStreamPlayer
+		var in_db:float = -10
 		
-	# Used for music to fade between old and new music.
-	var fade :bool = false
-	var out_music:SAudioStreamPlayer
-	var in_db:float = -10
-	
-	# Set out music to fade
-	if music != null: 
-		out_music = music
-		fade = true
-		in_db = _audio_file.volume_db
-	
-	var new_player:SAudioStreamPlayer = _get_audio_stream(_audio_file, 1) as SAudioStreamPlayer
-	
-	# Trigger music fade
-	if fade: 
-		new_player.volume_db = MIN_DB
-		_fade_music(out_music, new_player, in_db)
+		# Set out music to fade
+		if music != null: 
+			out_music = music
+			fade = true
+			in_db = _audio_file.volume_db
 		
-	if new_player: new_player.play()
-	return new_player
+		var new_player:SAudioStreamPlayer = _get_audio_stream(_audio_file, 1) as SAudioStreamPlayer
+		
+		# Trigger music fade
+		if fade: 
+			new_player.volume_db = MIN_DB
+			_fade_music(out_music, new_player, in_db)
+			
+		if new_player: new_player.play()
+		return new_player
+	else:
+		push_error("Pay_Audio is receiving a null value.")
+		return null
 
 # The function used to play 2D audio
 func play_audio_2d(_audio_file:AudioFile = null, _position:Vector2 = Vector2.ZERO) -> SAudioStreamPlayer2D:
-	if _audio_file.is_unique:
-		var temp:Node = _get_currently_playing(_audio_file)
-		if temp and temp is SAudioStreamPlayer2D: return temp as SAudioStreamPlayer2D
+	if _audio_file != null:
+		if _audio_file.is_unique:
+			var temp:Node = _get_currently_playing(_audio_file)
+			if temp and temp is SAudioStreamPlayer2D: return temp as SAudioStreamPlayer2D
+			
+		var new_player:SAudioStreamPlayer2D = _get_audio_stream(_audio_file, 2) as SAudioStreamPlayer2D
 		
-	var new_player:SAudioStreamPlayer2D = _get_audio_stream(_audio_file, 2) as SAudioStreamPlayer2D
-	
-	if new_player: 
-		new_player.set_deferred("global_position", _position)
-		new_player.play()
-	return new_player
+		if new_player: 
+			new_player.set_deferred("global_position", _position)
+			new_player.play()
+		return new_player
+	else:
+		push_error("Pay_Audio_2D is receiving a null value.")
+		return null
+		
 
 # The function used to play 3D audio
 func play_audio_3d(_audio_file:AudioFile = null, _position:Vector3 = Vector3.ZERO) -> SAudioStreamPlayer3D:
-	if _audio_file.is_unique:
-		var temp:Node = _get_currently_playing(_audio_file)
-		if temp and temp is SAudioStreamPlayer3D: return temp as SAudioStreamPlayer3D
+	if _audio_file != null:
+		if _audio_file.is_unique:
+			var temp:Node = _get_currently_playing(_audio_file)
+			if temp and temp is SAudioStreamPlayer3D: 
+				return temp as SAudioStreamPlayer3D
+			
+		var new_player:SAudioStreamPlayer3D = _get_audio_stream(_audio_file, 3) as SAudioStreamPlayer3D
 		
-	var new_player:SAudioStreamPlayer3D = _get_audio_stream(_audio_file, 3) as SAudioStreamPlayer3D
-	
-	if new_player: 
-		new_player.set_deferred("global_position", _position)
-		new_player.play()
-	return new_player
+		if new_player: 
+			new_player.set_deferred("global_position", _position)
+			new_player.play()
+		return new_player
+	else:
+		push_error("Pay_Audio_3D is receiving a null value.")
+		return null
 
 # Resets the buses to the default values in the AudioData resource (see const above)
 func reset_volumes() -> void:
