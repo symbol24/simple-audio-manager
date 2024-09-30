@@ -1,11 +1,6 @@
 class_name TestScene 
 extends Control
 
-const DEFAULT = preload("res://addons/AudioBySymbol/Data/Audio/default.tres")
-const TEST_MUSIC = preload("res://addons/AudioBySymbol/Data/Audio/test_music.tres")
-const TEST_SOUND = preload("res://addons/AudioBySymbol/Data/Audio/test_sound.tres")
-const TEST_SOUND_2D = preload("res://addons/AudioBySymbol/Data/Audio/test_sound_2d.tres")
-const TEST_SOUND_3D = preload("res://addons/AudioBySymbol/Data/Audio/test_sound_3d.tres")
 
 @onready var btn_music: Button = %btn_music
 @onready var btn_sfx: Button = %btn_sfx
@@ -32,6 +27,7 @@ var timer :float = 0.0:
 			timer = 0.0
 			Audio.set_volumes(master_volume, music_volume, sfx_volume)
 
+
 func _ready() -> void:
 	btn_music.pressed.connect(_music_pressed)
 	btn_sfx.pressed.connect(_sfx_pressed)
@@ -41,51 +37,58 @@ func _ready() -> void:
 	slider_master.drag_ended.connect(_master_update)
 	slider_music.drag_ended.connect(_music_update)
 	slider_sfx.drag_ended.connect(_sfx_update)
-	master_volume = DEFAULT.master_volume
-	music_volume = DEFAULT.music_volume
-	sfx_volume = DEFAULT.sfx_volume
+	master_volume = Audio.default.master_volume
+	music_volume = Audio.default.music_volume
+	sfx_volume = Audio.default.sfx_volume
 	slider_master.value = master_volume
 	slider_music.value = music_volume
 	slider_sfx.value = sfx_volume
 	Audio.reset_volumes()
 
+
 func _music_pressed() -> void:
 	if music == null:
-		music = Audio.play_audio(TEST_MUSIC)
+		music = Audio.play_audio(Audio.default.get_audio_file("test_music"))
 	else:
-		music.stop()
-		music.exit_tree()
+		Audio.stop_music()
+
 
 func _sfx_pressed() -> void:
 	if sfx == null:
-		sfx = Audio.play_audio(TEST_SOUND)
+		sfx = Audio.play_audio(Audio.default.get_audio_file("sound_normal"))
 		
+
 func _sfx2d_pressed() -> void:
 	if sfx == null:
-		sfx = Audio.play_audio_2d(TEST_SOUND_2D)
+		sfx = Audio.play_audio_2d(Audio.default.get_audio_file("sound_2d"))
 		
+
 func _sfx3d_pressed() -> void:
 	if sfx == null:
-		sfx = Audio.play_audio_3d(TEST_SOUND_3D)
+		sfx = Audio.play_audio_3d(Audio.default.get_audio_file("sound_3d"))
 		print("---------")
 		print("3D audio requires a proper 3D environement. Only normal and 2D sounds are heard in this demo scene.")
 		print("The 3D audio file was instantiated under name ", sfx.name)
 
+
 func _reset_pressed() -> void:
 	Audio.reset_volumes()
-	master_volume = DEFAULT.master_volume
-	music_volume = DEFAULT.music_volume
-	sfx_volume = DEFAULT.sfx_volume
+	master_volume = Audio.default.master_volume
+	music_volume = Audio.default.music_volume
+	sfx_volume = Audio.default.sfx_volume
+
 
 func _master_update(_value_changed:bool) -> void:
 	if _value_changed:
 		master_volume = slider_master.value
 		Audio.set_volumes(master_volume, music_volume, sfx_volume)
 
+
 func _music_update(_value_changed:bool) -> void:
 	if _value_changed:
 		music_volume = slider_music.value
 		Audio.set_volumes(master_volume, music_volume, sfx_volume)
+
 
 func _sfx_update(_value_changed:bool) -> void:
 	if _value_changed:

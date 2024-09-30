@@ -5,9 +5,11 @@
 
 [resource]
 script = ExtResource("1_1fped")
+id = "sound_normal"
 files = Array[AudioStream]([ExtResource("1_0afqi")])
 volume_db = 20.0
 min_pitch_scale = 1.0
 max_pitch_scale = 1.0
 is_music = false
 always_play = false
+is_unique = false

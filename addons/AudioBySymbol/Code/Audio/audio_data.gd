@@ -32,3 +32,28 @@ extends Resource
 		sfx_volume = _value
 		if sfx_volume > 1.0: sfx_volume = 1.0
 		elif sfx_volume < 0.0: sfx_volume = 0.0
+##Audio Files can be inserted manualy or can be retreived automatically on runtime.
+@export var audio_files:Array[AudioFile]
+
+
+func get_audio_file(_id:String = "") -> AudioFile:
+	for file in audio_files:
+		if file.id == _id:
+			return file
+	push_error("AudioFile ", _id, " not present in the AudioData resource.")
+	return null
+
+
+func add_audio_file(_af:AudioFile = null) -> bool:
+	var result:bool = true
+	for file in audio_files:
+		if file.id == _af.id:
+			result = false
+			break
+	
+	if result:
+		audio_files.append(_af.duplicate())
+	else:
+		push_warning("AudioFile ", _af.id, " not appended to AudioData as it is already present.")
+	
+	return result

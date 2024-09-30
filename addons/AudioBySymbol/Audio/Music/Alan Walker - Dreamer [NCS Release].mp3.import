@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://bnaye333e2e2q"
+path="res://.godot/imported/Alan Walker - Dreamer [NCS Release].mp3-b939d0b300bec5ed4fc969e2acffe3bf.mp3str"
+
+[deps]
+
+source_file="res://addons/AudioBySymbol/Audio/Music/Alan Walker - Dreamer [NCS Release].mp3"
+dest_files=["res://.godot/imported/Alan Walker - Dreamer [NCS Release].mp3-b939d0b300bec5ed4fc969e2acffe3bf.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

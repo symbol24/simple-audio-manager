@@ -5,12 +5,11 @@
 
 [resource]
 script = ExtResource("2_r3jp6")
+id = "sound_2d"
 files = Array[AudioStream]([ExtResource("1_q3k6l")])
-stream_type = 1
 volume_db = 20.0
 min_pitch_scale = 1.0
 max_pitch_scale = 1.0
-random_pitch = true
 is_music = false
 always_play = false
 is_unique = false

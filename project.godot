@@ -14,7 +14,7 @@ config/name="Simple Audio Manager"
 config/description="A simple audio manager to help start audio."
 run/main_scene="res://addons/AudioBySymbol/Scenes/test_scene.tscn"
 config/features=PackedStringArray("4.3", "Forward Plus")
-config/icon="res://simple_audio_manager_icon.png"
+config/icon="res://addons/AudioBySymbol/simple_audio_manager_icon.png"
 
 [autoload]
 

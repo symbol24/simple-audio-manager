@@ -1,12 +1,13 @@
 [gd_resource type="Resource" script_class="AudioFile" load_steps=3 format=3 uid="uid://wnpgq1km20y6"]
 
-[ext_resource type="AudioStream" uid="uid://dqp6r2awlcqeg" path="res://addons/AudioBySymbol/Audio/Music/squish4.ogg" id="1_0hbr0"]
 [ext_resource type="Script" path="res://addons/AudioBySymbol/Code/Audio/audio_file.gd" id="1_afm3y"]
+[ext_resource type="AudioStream" uid="uid://bnaye333e2e2q" path="res://addons/AudioBySymbol/Audio/Music/Alan Walker - Dreamer [NCS Release].mp3" id="1_vjyvy"]
 
 [resource]
 script = ExtResource("1_afm3y")
-files = Array[AudioStream]([ExtResource("1_0hbr0")])
-volume_db = 20.0
+id = "test_music"
+files = Array[AudioStream]([ExtResource("1_vjyvy")])
+volume_db = -10.0
 min_pitch_scale = 1.0
 max_pitch_scale = 1.0
 is_music = true

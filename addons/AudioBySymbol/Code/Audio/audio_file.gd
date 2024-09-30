@@ -1,6 +1,10 @@
 class_name AudioFile 
 extends Resource
 
+
+##An ID that is used by the auto load to find the proper audio file.
+@export var id:String = ""
+
 ##Import your own audio files and add them to the files list. Note, if only 1 file present, then no random sounds.
 @export var files:Array[AudioStream]
 
